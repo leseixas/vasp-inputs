@@ -1,0 +1,161 @@
+SYSTEM="Graphene"
+
+####################################
+#       Plane wave basis set       #
+####################################
+
+PREC            =       Normal          # Low | Medium | Normal | Accurate | High
+ENCUT           =       400             # Energy cutoff in eV, Default: ENCUT=max(ENMAX) in POTCAR for PREC=Normal.
+#ENAUG           =       605             # ENAUG=max(ENAUG) in POTCAR for PREC=Normal
+#LREAL           =       .TRUE.          # .TRUE. | .FALSE. | O | Auto,  Default:.FALSE.
+
+
+###################################
+#        Spin polarization        #
+###################################
+
+#ISPIND          =       2               #makes spin-polarized calc. possible
+#ISPIN           =       2               # 1 (withou spin) | 2 (with spin)
+#MAGMOM          =       252*0         #initial mag. mom. of each atom.
+#SAXIS          =       0 0 1           # direction of the magnetic axis
+
+
+#######################################
+#        Self-Consistent Field        #
+#######################################
+
+
+#GGA             =       PE
+ALGO            =       Normal          # Normal | Fast | VeryFast
+EDIFF           =       1E-8            #total (free) energy diference between two steps for convengence
+NELM            =       500             #Maximum number of electronic steps
+NELMIN          =       4               #Minimum number of electronic steps
+#AMIN           =       0.4
+#AMIX           =       0.1
+#BMIX           =       1.0
+KPAR            =       2                # Parallelization
+NPAR            =       2 
+
+########################################
+#        Electronic temperature        #
+########################################
+
+ISMEAR          =       -1              # -1 (Fermi) | 0 (Gaussian) | 1 (Methfessel-Paxton)
+SIGMA           =       0.01            # Smearing width in eV (keep TS<1meV/atom)
+
+
+####################################
+#        Molecular dynamics        #
+####################################
+
+EDIFFG          =       -1.0E-3         # for negative values, is the value of convenge in force
+NSW             =       300             # numberof ionic steps taken in minimization. Make it odd.
+IBRION          =       1               # -1 (fixed ions) | 0 (AIMD) | 1 (quasi-newton) | 2 (CG)
+ISIF            =       7               # 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7
+
+
+#########################################
+#        Optional loadable files        #
+#########################################
+
+#ISTART         =       0               # 0-don't read wavecar / 1-read wavecar
+#ICHARG          =       11              # non selfconsistent run, read CHGCAR
+
+
+####################################
+#        Spin-Orbit coupling       #
+####################################
+
+#LSORBIT          =       .TRUE.
+NBANDS           =       40              # Use 2*(number of bands without Spin-Orbit Coupling) for SOC calculations
+#LMAXMIX         =       4               # for d elements increase LMAXMIX to 4, f: LMAXMIX = 6
+
+
+######################################################
+#        Hartree-Fock and Hybrid functionals         #
+######################################################
+
+#LHFCALC        =       .TRUE.
+#PRECFOCK       =       Normal          # Low | Medium | Fast | Normal | Accurate
+#LMAXFOCK       =       4
+#LMAXFOCKAE     =       8
+#IMIX           =       1
+#AEXX           =       0.25
+#AGGAX          =       0.75
+#AGGAC          =       1.0
+#HFSCREEN       =       0.2             # 0.2 (for HSE06) | 0.3 (for HSE03)
+#ISYM           =       -1
+#WEIMIN         =       0.0
+#NKRED          =       2               # Warning: Number of k-points must be dividable by NKRED
+
+
+#####################
+#     DFT+U         #
+#####################
+
+#LDAU            =       .TRUE.
+#LDAUTYPE        =       2
+#LDAUL           =       2 -1
+#LDAUU           =       6.3  0.0
+#LDAUJ           =       0.0  0.0
+#LDAUPRINT       =       2
+
+
+##################################
+#        GW approximation        #
+##################################
+
+#### 2nd step ####
+#ALGO           =       Exact           # use exact diagonalization of the Hamiltonian
+#NELM           =       1               # since we are already converged stop after one step
+#LOPTICS        =       .TRUE.
+#NBANDS         =       96              # Use approximatelly 24*(number of occupied bands)
+
+#### 3rd step ####
+#ALGO           =       GW0
+#NOMEGA         =       50              # Number of frequencies for self-energy integration
+
+
+###########################################
+#        van der Waals interaction        #
+###########################################
+
+#LVDW           =       .TRUE.
+#VDW_RADIUS     =       30.0
+#VDW_SCALING    =       0.75
+#VDW_D          =       20.0
+#VDW_C6         =       0.0 12.64
+#VDW_R0         =       1.881 1.771
+
+#GGA             =       RE
+#LUSE_VDW        =       .TRUE.
+#AGGAC           =       0.0000
+
+#GGA = MK 
+#PARAM1 = 0.1234 
+#PARAM2 = 1.0000
+#LUSE_VDW = .TRUE.
+#AGGAC = 0.0000
+
+######################################################
+#        Dipole correction and Electric Field        #
+######################################################
+
+#LDIPOL         =       .TRUE.
+#IDIPOL         =       3               # Direction of External Electric Field
+#EFIELD         =       0.003           # Magnitude of External Electric Field
+
+
+#################################
+#        Output features        #
+#################################
+
+#LORBIT          =       11              # About DOSCAR, PROCAR and PROOUT, read manual
+#NUPDOWN        =       0               # Diference between number of electrons with up and down spin
+#EMIN           =       -10.0           # Minimum energy for evaluating the DOS
+#EMAX           =       10.0            # Maximum energy for evaluating the DOS
+#NEDOS          =       1000            # Number of grid points in DOS
+LWAVE           =       .FALSE.         # Write the wavefunction
+#LELF           =       .TRUE.          # Write ELFCAR, electron localization function
+LCHARG          =       .TRUE.          # Write the Charge density
+#LAECHG          =       .TRUE.          # Write all-electron change density
